@@ -52,7 +52,12 @@ Route::group(['prefix' => 'permissions'], function () {
 });
 // -------------------------authentication ---------------------------------------
 Route::post('/register', [UserController::class, 'register'])->name('users.register');
+Route::post('/login_db', [UserController::class, 'login'])->name('users.login');
 
 Route::get('/', function () {
     return view('auth.register');
+});
+
+Route::get('/login', function () {
+    return view('auth.login');
 });

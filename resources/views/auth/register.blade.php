@@ -133,6 +133,9 @@
                                                 </button>
                                             </div>
                                         </form>
+                                        <div style="margin-right: 40%">
+                                            <a href="/login">login instead </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AdminRequest;
+use App\Http\Requests\UserRequest;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class UserController extends Controller
 {
@@ -49,7 +52,7 @@ class UserController extends Controller
     }
     // user register
 
-    public function register(Request $request)
+    public function register(UserRequest $request)
     {
         // $first_row = User::latest()->first();
         // return $first_row;
@@ -69,4 +72,21 @@ class UserController extends Controller
             return redirect()->route('users.index')->with(['success' => 'حدث خطا ما']);
         }
 
-    }}
+    }
+    public function login(Request $request)
+    {
+        $request->validate([
+            'email' => 'required',
+            'password' => 'required',
+        ]);
+
+        $credentials = $request->only('email_phone', 'password');
+        if (Auth::attempt($credentials)) {
+            return Redirect::to('/')
+                ->withSuccess('Signed in');
+        }
+
+        return redirect("/")->withSuccess('Login details are not valid');
+    }
+
+}
